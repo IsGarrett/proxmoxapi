@@ -19,3 +19,6 @@ def get_lxc(vmid: int):
 def get_nodes():
     nodes = prox.nodes.get()
     return [parse_node_response(node) for node in nodes]
+
+
+    
