@@ -1,0 +1,24 @@
+GET  /v1/nodes                    # list all nodes and current stats
+GET  /v1/nodes/{node}/metrics     # historical metrics from your DB
+
+--------------------------------------------------------
+GET     /v1/vms                   # list all VMs
+GET     /v1/vms/{vmid}            # details for a specific VM
+POST    /v1/vms                   # provision a new VM
+DELETE  /v1/vms/{vmid}            # destroy a VM
+POST    /v1/vms/{vmid}/start      # start a VM
+POST    /v1/vms/{vmid}/stop       # stop a VM
+--------------------------------------------------
+GET     /v1/containers            # list all LXC containers
+GET     /v1/containers/{vmid}     # details for a specific container
+POST    /v1/containers            # create a new container
+DELETE  /v1/containers/{vmid}     # destroy a container
+POST    /v1/containers/{vmid}/start
+POST    /v1/containers/{vmid}/stop
+--------------------------------------------------
+GET  /v1/audit                    # full action history
+GET  /v1/audit?resource=lxc       # filter by resource type
+------------------------------------------------------
+POST  /v1/auth/login              # returns JWT token
+POST  /v1/auth/register           # create a new API user
+-----------------------------------------------------
