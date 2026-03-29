@@ -18,8 +18,24 @@ def get_all_vms():
         all_vms.extend(vms)
     return all_vms
 
+
 #get specific VM's based off id passed in
 @router.get('/v1/vms/{vmid}')
 def get_vm(vmid: int):
     vm = prox.nodes("homelab").qemu(vmid).status.current.get()
     return vm
+
+
+#start vm
+@router.post('/v1/vms/{vmid}/start')
+def start_vm(vmid:int):
+    vm = prox.nodes("homelab").qemu(vmid).status.start.post()
+    return vm
+
+#stop vm
+@router.post('/v1/vms/{vmid}/stop')
+def stop_vm(vmid:int):
+    vm = prox.nodes("homeland").qemu(vmid).status.stop.post()
+    return vm
+
+
