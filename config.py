@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     proxmox_token_secret: str
     proxmox_port: int
     database_url: str
+    redis_url: str
 
     class Config:
         env_file = ".env"
