@@ -17,7 +17,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /opt/proxmoxapi
-            git pull
+            git fetch origin
+            git reset --hard origin/main
             source .venv/bin/activate
             pip install -r requirements.txt
-            systemctl restart proxmoxapi
+            systemctl restart proxmoxapi celery-worker celery-beat
