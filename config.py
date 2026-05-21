@@ -7,8 +7,10 @@ class Settings(BaseSettings):
     proxmox_port: int
     database_url: str
     redis_url: str
+    secret_key: str
 
     class Config:
         env_file = ".env"
+        
 
 settings = Settings()
