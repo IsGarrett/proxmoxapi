@@ -12,5 +12,5 @@ class LxcMetric(Base):
     status = Column(String)
     cpu = Column(Float)
     memory = Column(BigInteger)
-    recorded_at = Column(DateTime, default=datetime)
+    recorded_at = Column(DateTime, default=datetime.utcnow)
 
