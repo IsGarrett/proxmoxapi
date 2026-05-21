@@ -1,6 +1,7 @@
 from workers.celery_app import celery_app
 from services.proxmox import prox
 from models.node_metric import NodeMetric
+from models.lxc_metric import LxcMetric
 from db import SessionLocal
 
 
@@ -25,4 +26,27 @@ def poll_node_metrics():
         db.commit()
     finally:
         db.close()
+    
+@celery_app.task
+def poll_lxc_metrics():
+    db = SessionLocal()
+
+    try:
+        containers = prox.nodes("homelab").lxc.get()
+        for container in containers:
+            metric = LxcMetric(
+                vmid = container.get('vmid'),
+                name = container.get('name'),
+                status = container.get('status'),
+                cpu = container.get('cpu'),
+                memory = container.get('mem')
+            )
+            db.add(metric)
+        db.commit()
+    finally:
+        db.close()
+
+
+
+
 
