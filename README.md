@@ -1,0 +1,1 @@
+I built this proxmox API because I wanted visibility into my homelab set up away from home! It consumes Proxmox's built-in API services to serve your metrics for consumption. It utilizes Redis and Celery to act as in-memory cacheing for taking your nodes health metrics and delivering them to a backend Postgres database. 
