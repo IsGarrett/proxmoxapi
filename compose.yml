@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    command: fastapi run main.py --host 0.0.0.0
+
+  celery-worker:
+    build: .
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    command: celery -A workers.celery_app worker --loglevel=info
+
+  celery-beat:
+    build: .
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    command: celery -A workers.celery_app beat --loglevel=info
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: proxmox_api
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: proxmox_api_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
