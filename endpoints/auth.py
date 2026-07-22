@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from db import get_db
+from models.audit import AuditLog
 from models.user import User
 from schemas.auth import UserRegister, TokenResponse, UserLogin
 from services.auth import hash_password, verify_password, create_access_token, decode_token
 from fastapi.security import OAuth2PasswordRequestForm
+from services.database import log_action
 
 
 router = APIRouter()
@@ -46,4 +48,5 @@ def user_login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = D
         raise HTTPException(status_code=401, detail="Invalid username or password")
 
     token = create_access_token({"sub": existing_username.username})
+
     return TokenResponse(access_token=token, token_type="bearer")

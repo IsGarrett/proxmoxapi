@@ -70,6 +70,12 @@ FastAPI's interactive docs are availble at `http://localhost:8000/docs`
 | POST | `/v1/auth/register` | Register a new user |
 | POST | `/v1/auth/login` | Login and receive a JWT token |
 
+### Audit Logs
+| Method | Endpoint | Description |
+| GET | `/v1/audit` | Returns Audit Log table |
+| GET | `/v1/audit/{resource_type}` | Returns Audit Log table filtered by resource type|
+
+
 ### Nodes
 | Method | Endpoint | Description |
 |--------|----------|-------------|
